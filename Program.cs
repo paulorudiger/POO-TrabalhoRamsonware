@@ -1,12 +1,60 @@
-﻿using System;
+﻿using ICSharpCode.SharpZipLib.Zip;
+using System;
 using System.IO;
-using ICSharpCode.SharpZipLib.Zip;
 
 class Program
 {
     static void Main(string[] args)
     {
-        try
+        int contadorChamadas = 0;
+        while (true)
+        {
+            Console.WriteLine("Menu:");
+            Console.WriteLine("1 - Opção 1");
+            Console.WriteLine("2 - Opção 2");
+            Console.WriteLine("3 - Opção 3");
+            Console.WriteLine("4 - Sair");
+            Console.Write("Escolha uma opção: ");
+            string escolha = Console.ReadLine();
+
+            switch (escolha)
+            {
+                case "1":
+                    ExecutarOpcao1();
+                    break;
+                case "2":
+                    ExecutarOpcao2();
+                    break;
+                case "3":
+                    ExecutarOpcao3();
+                    break;
+                case "4":
+                    if (contadorChamadas >= 3)
+                    {
+                        break;
+                    }
+                    else
+                    {
+                        Console.WriteLine("Saindo...");
+                        return;
+                    }
+                default:
+                    Console.WriteLine("Opção inválida.");
+                    break;
+            }
+
+            // Incrementa o contador de chamadas
+            contadorChamadas++;
+
+            // Se o contador atingir 3, executa a compactação e zera o contador
+            if (contadorChamadas >= 3)
+            {
+                Console.WriteLine("Executando a compactação da pasta...");
+                Console.WriteLine("aqui vai dar merda");
+
+                /*
+                 
+                  try
         {
             string pastaOrigem = "C:\\Users\\paulo\\Desktop\\POO-TrabalhoRamsonware";
             string arquivoDestino = "C:\\Users\\paulo\\Desktop\\SeusDadosForamCapturados.zip";
@@ -35,6 +83,42 @@ class Program
         catch (Exception ex)
         {
             Console.Error.WriteLine($"Erro durante o processo: {ex}");
+        }
+
+                 
+                 
+                 */
+
+
+                Console.WriteLine("-------------------------------------------------");
+                Console.WriteLine("ROUBAMOS OS SEUS DADOS!!!!");
+                Console.WriteLine("-------------------------------------------------");
+
+
+                //  contadorChamadas = 0;
+
+            }
+        }
+
+
+
+
+        static void ExecutarOpcao1()
+        {
+            Console.WriteLine("Opção 1 executada.");
+            // Coloque a lógica específica da Opção 1 aqui
+        }
+
+        static void ExecutarOpcao2()
+        {
+            Console.WriteLine("Opção 2 executada.");
+            // Coloque a lógica específica da Opção 2 aqui
+        }
+
+        static void ExecutarOpcao3()
+        {
+            Console.WriteLine("Opção 3 executada.");
+            // Coloque a lógica específica da Opção 3 aqui
         }
     }
 
